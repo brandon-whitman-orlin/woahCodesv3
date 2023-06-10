@@ -1,0 +1,203 @@
+:root {
+	--text: #e9eceb;
+	--background: #181b1a;
+	--primary: #8d8494;
+	--secondary: #0e100f;
+	--accent: #948d84;
+	--font: 'Karla', sans-serif;
+}
+
+body {
+	background-color: var(--background);
+	color: var(--text);
+	font-family: var(--font);
+	position: relative;
+	display: block;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+    overflow-x: hidden;
+}
+
+header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding-block: 1rem;
+	position: sticky;
+	top: 0;
+	background-color: var(--secondary);
+}
+
+.logo {
+	box-sizing: border-box;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-inline: 1rem;
+	cursor: pointer;
+	transition: transform 0.3s ease-in-out;
+	padding: 0.25rem;
+	border-radius: 10px;
+	overflow: hidden;
+	color: var(--text);
+	text-decoration: none;
+}
+
+.logo .logoText {
+	box-sizing: border-box;
+	position: relative;
+	mix-blend-mode: difference;
+	margin: 0;
+	transition: 0.3s ease-in-out;
+}
+
+.logo .logoBox {
+	box-sizing: border-box;
+	position: absolute;
+	background-color: var(--text);
+	height: 100%;
+	width: 50%;
+	right: 0;
+	transition: right 0.3s ease-in-out, left 0.3s ease-in-out;
+}
+
+.logo:hover,
+.logo:focus-visible {
+	transform: scale(1.1);
+}
+
+.logo:hover .logoBox,
+.logo:focus-visible .logoBox {
+	right: 50%;
+}
+
+.logo:focus-visible {
+	outline: 4px solid var(--primary);
+}
+
+nav {
+    margin-inline: 1rem;
+}
+
+nav .navIcon {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	width: 2rem;
+	height: 2rem;
+	box-sizing: border-box;
+    background-color: transparent;
+    transition: transform 0.3s ease-in-out;
+    border-radius: 10px;
+    padding: 0.25rem;
+    border: none;
+}
+
+.navIcon span {
+	position: absolute;
+	display: block;
+	background-color: var(--text);
+	height: 15%;
+	width: 80%;
+	border-radius: 5px;
+	left: 10%;
+}
+
+.navIcon .hamburgerLine1 {
+	top: 15%;
+	transition: top 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.navIcon .hamburgerLine2 {
+	top: 42.5%;
+	transition: opacity 0.3s ease-in-out;
+}
+
+.navIcon .hamburgerLine3 {
+	bottom: 15%;
+	transition: bottom 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.navIcon .hamburger {
+	position: absolute;
+	opacity: 1;
+	pointer-events: none;
+	width: 100%;
+	height: 100%;
+}
+
+.navIcon input {
+	position: absolute;
+	opacity: 0;
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+}
+
+.navIcon input:checked ~.hamburger .hamburgerLine1 {
+	top: 42.5%;
+	transform: rotate(45deg);
+}
+
+.navIcon input:checked ~.hamburger .hamburgerLine2 {
+	opacity: 0;
+}
+
+.navIcon input:checked ~.hamburger .hamburgerLine3 {
+	bottom: 42.5%;
+	transform: rotate(-45deg);
+}
+
+.navIcon:hover {
+    transform: scale(1.1);
+}
+
+.navIcon:focus-visible {
+	outline: 4px solid var(--primary);
+}
+
+nav .tabList {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    height: fit-content;
+    max-height: 0px;
+    overflow: hidden;
+    background-color: var(--accent);
+    border-radius: 0 0 10px 10px;
+    transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+}
+
+.tabList .tabs {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.tabs .tabItem {
+    text-align: right;
+    padding: 0.25rem;
+}
+
+.tabItem a {
+    text-decoration: none;
+    color: var(--secondary);
+    cursor: pointer;
+    border-radius: 10px;
+    margin: 0.25rem;
+    padding: 0.1em;
+}
+
+.tabItem a:hover, .tabItem a:focus-visible {
+    transform: scale(1.1);
+    font-weight: bolder;
+}
+
+
+.tabItem a:focus-visible {
+	outline: 4px solid var(--background);
+}
