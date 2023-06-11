@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     let introducing = document.getElementById("introducing");
     // const defaultSnapList = [0, -36, -72.32, -108.48, -144.8];
     const smallSnapList = [5.1, -21.5, -48.1, -74.7, -101.3];
-    const safariSnapList = [4.8, -21.5, -48.1, -74.7, -107.4];
+    const safariSnapList = [4.8, -21.5, -51, -74.7, -107.4];
     let snapList = smallSnapList;
 
     let safari = false;
