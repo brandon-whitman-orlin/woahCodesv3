@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         safari = true;
     }
 
-    if (safari && window.innerWidth <= 1100 && directoryExpand.getAttribute("data-state") == "closed") {
+    if (safari) {
         snapList = safariSnapList;
     }
 
