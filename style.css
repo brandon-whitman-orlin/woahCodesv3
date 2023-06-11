@@ -284,8 +284,15 @@ section:nth-of-type(2n) {
 }
 
 @media (max-width: 300px) {
-    body {
-      outline: 10px solid red;
-      outline-offset: -10px;
+    section::before {
+      content: '300px';
+      font-size: 3rem;
+      font-weight: bold;
+      opacity: 0.5;
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      inset: 0;
     }
 }

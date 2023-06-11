@@ -61,7 +61,24 @@ document.addEventListener("DOMContentLoaded", (event) => {
     let introducing = document.getElementById("introducing");
     // const defaultSnapList = [0, -36, -72.32, -108.48, -144.8];
     const smallSnapList = [5.1, -21.5, -48.1, -74.7, -101.3];
+    const safariSnapList = [5.1, -21.5, -48.1, -74.7, -105.3];
     let snapList = smallSnapList;
+
+    let safari = false;
+
+    if ((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1) {
+        safari = false;
+    } else if (navigator.userAgent.indexOf("Chrome") != -1) {
+        safari = false;
+    } else if (navigator.userAgent.indexOf("Safari") != -1) {
+        safari = true;
+    }
+
+    if (safari && window.innerWidth <= 1100 && directoryExpand.getAttribute("data-state") == "closed") {
+        snapList = safariSnapList;
+    }
+
+    vScrollContainer.style.top = snapList[0] + 'px';
 
     let isDragging = false;
     let initialY = 0;
