@@ -1,3 +1,23 @@
+//
+document.addEventListener("DOMContentLoaded", (event) => {
+    function isMouseOrTouch() {
+        // Check for touch screen
+        if ('ontouchstart' in window || navigator.maxTouchPoints) {
+          document.body.style.backgroundColor = "red";
+        }
+      
+        // Check for mouse
+        if (window.matchMedia && window.matchMedia('(pointer:fine)').matches) {
+            document.body.style.backgroundColor = "blue";
+        }
+      
+        // Fallback to unknown
+        return 'unknown';
+      }
+
+    isMouseOrTouch();
+});
+
 // Handling Navigation Toggle when using Keyboard Navigation
 document.addEventListener("DOMContentLoaded", (event) => {
     const navIcon = document.querySelector(".navIcon");
@@ -56,88 +76,86 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 // Handle Clicking and Dragging for the Intro Text
 document.addEventListener("DOMContentLoaded", (event) => {
-    const elements = document.querySelectorAll('.clickDrag');
-    const vScrollContainer = document.querySelector('.vScroll');
-    let introducing = document.getElementById("introducing");
-    const snapList = [0, -36, -72.32, -108.48, -144.8];
+const elements = document.querySelectorAll('.clickDrag');
+const vScrollContainer = document.querySelector('.vScroll');
+let introducing = document.getElementById("introducing");
+const snapList = [0, -36, -72.32, -108.48, -144.8];
 
-    let isDragging = false;
-    let initialY = 0;
-    let yOffset = 0;
-    const minTop = 0;
-    const maxTop = -9.05 * parseFloat(getComputedStyle(vScrollContainer).fontSize);
+let isDragging = false;
+let initialY = 0;
+let yOffset = 0;
+const minTop = 0;
+const maxTop = -9.05 * parseFloat(getComputedStyle(vScrollContainer).fontSize);
 
-    elements.forEach(function(element) {
-        element.addEventListener('mousedown', function() {
-            element.classList.add('dragging');
-        });
-
-        element.addEventListener('mouseup', function() {
-            element.classList.remove('dragging');
-        });
+elements.forEach(function(element) {
+    element.addEventListener('mousedown', function() {
+    element.classList.add('dragging');
     });
 
-    function dragStart(e) {
-        isDragging = true;
-        initialY = e.clientY;
-        yOffset = vScrollContainer.offsetTop;
-        vScrollContainer.classList.add('dragging');
-    }
-
-    function drag(e) {
-        if (isDragging) {
-            const deltaY = e.clientY - initialY;
-            let newTop = Math.max(Math.min(yOffset + deltaY, minTop), maxTop);
-            introducing.setAttribute("data-state", snapList.indexOf(findClosestNumber(newTop, snapList)))
-            vScrollContainer.style.top = `${findClosestNumber(newTop, snapList)}px`;
-        }
-    }
-
-    function dragEnd() {
-        if (isDragging) {
-            isDragging = false;
-            vScrollContainer.classList.remove('dragging');
-        }
-    }
-
-    vScrollContainer.addEventListener('mousedown', dragStart);
-    document.addEventListener('mousemove', drag);
-    document.addEventListener('mouseup', dragEnd);
-
-    document.addEventListener('selectstart', (e) => {
-        if (isDragging) {
-            e.preventDefault();
-        }
+    element.addEventListener('mouseup', function() {
+    element.classList.remove('dragging');
     });
 
-    function findClosestNumber(inputNumber, numbers) {
-        return numbers.reduce((closest, current) => {
-            return Math.abs(inputNumber - current) < Math.abs(inputNumber - closest) ? current : closest;
-        });
+    element.addEventListener('touchstart', function(e) {
+    e.preventDefault();
+    element.classList.add('dragging');
+    dragStart(e.touches[0]);
+    });
+
+    element.addEventListener('touchmove', function(e) {
+    e.preventDefault();
+    drag(e.touches[0]);
+    });
+
+    element.addEventListener('touchend', function() {
+    element.classList.remove('dragging');
+    dragEnd();
+    });
+});
+
+function dragStart(e) {
+    isDragging = true;
+    initialY = e.clientY || e.touches[0].clientY;
+    yOffset = vScrollContainer.offsetTop;
+    vScrollContainer.classList.add('dragging');
+}
+
+function drag(e) {
+    if (isDragging) {
+    const clientY = e.clientY || e.touches[0].clientY;
+    const deltaY = clientY - initialY;
+    let newTop = Math.max(Math.min(yOffset + deltaY, minTop), maxTop);
+    introducing.setAttribute("data-state", snapList.indexOf(findClosestNumber(newTop, snapList)))
+    vScrollContainer.style.top = `${findClosestNumber(newTop, snapList)}px`;
+    }
+}
+
+function dragEnd() {
+    if (isDragging) {
+    isDragging = false;
+    vScrollContainer.classList.remove('dragging');
+    }
+}
+
+vScrollContainer.addEventListener('mousedown', dragStart);
+document.addEventListener('mousemove', drag);
+document.addEventListener('mouseup', dragEnd);
+
+document.addEventListener('selectstart', (e) => {
+    if (isDragging) {
+    e.preventDefault();
     }
 });
+
+function findClosestNumber(inputNumber, numbers) {
+    return numbers.reduce((closest, current) => {
+    return Math.abs(inputNumber - current) < Math.abs(inputNumber - closest) ? current : closest;
+    });
+}
+});
+  
 
 // Match Intro Description to Intro Text
 document.addEventListener("DOMContentLoaded", (event) => {
 
-});
-
-
-document.addEventListener("DOMContentLoaded", (event) => {
-    function isMouseOrTouch() {
-        // Check for touch screen
-        if ('ontouchstart' in window || navigator.maxTouchPoints) {
-          document.body.style.backgroundColor = "red";
-        }
-      
-        // Check for mouse
-        if (window.matchMedia && window.matchMedia('(pointer:fine)').matches) {
-            document.body.style.backgroundColor = "blue";
-        }
-      
-        // Fallback to unknown
-        return 'unknown';
-      }
-
-    isMouseOrTouch();
 });
