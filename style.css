@@ -27,6 +27,7 @@ header {
 	position: sticky;
 	top: 0;
 	background-color: var(--secondary);
+    z-index: 10;
 }
 
 .logo {
@@ -37,7 +38,6 @@ header {
 	align-items: center;
 	margin-inline: 1rem;
 	cursor: pointer;
-	transition: transform 0.3s ease-in-out;
 	padding: 0.25rem;
 	border-radius: 10px;
 	overflow: hidden;
@@ -61,11 +61,6 @@ header {
 	width: 50%;
 	right: 0;
 	transition: right 0.3s ease-in-out, left 0.3s ease-in-out;
-}
-
-.logo:hover,
-.logo:focus-visible {
-	transform: scale(1.1);
 }
 
 .logo:hover .logoBox,
@@ -118,6 +113,7 @@ nav .navIcon {
 }
 
 .navIcon .hamburgerLine3 {
+    transform: rotate(180deg);
 	bottom: 15%;
 	transition: bottom 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
@@ -149,7 +145,7 @@ nav .navIcon {
 
 .navIcon input:checked ~.hamburger .hamburgerLine3 {
 	bottom: 42.5%;
-	transform: rotate(-45deg);
+	transform: rotate(135deg);
 }
 
 .navIcon:hover {
@@ -167,9 +163,11 @@ nav .tabList {
     height: fit-content;
     max-height: 0px;
     overflow: hidden;
+    min-width: 11rem;
     background-color: var(--accent);
     border-radius: 0 0 10px 10px;
     transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
 }
 
 .tabList .tabs {
@@ -189,15 +187,95 @@ nav .tabList {
     cursor: pointer;
     border-radius: 10px;
     margin: 0.25rem;
-    padding: 0.1em;
+    padding-block: 0.1rem;
+    padding-inline: 0.25rem;
+    transition: font-size 0.3s ease-in-out;
 }
 
 .tabItem a:hover, .tabItem a:focus-visible {
-    transform: scale(1.1);
-    font-weight: bolder;
+    font-size: 1.1rem;
 }
-
 
 .tabItem a:focus-visible {
 	outline: 4px solid var(--background);
+}
+
+section {
+    box-sizing: border-box;
+    position: relative;
+    min-height: 50rem;
+}
+
+section:nth-of-type(2n) {
+    background-color: var(--text);
+    color: var(--background);
+}
+
+.introText {
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    padding: 1rem;
+    align-items: center;
+    left: 0;
+    right: 0;
+    top: 0;
+    box-sizing: border-box;
+}
+
+.introText .blurEffect {
+    position: relative;
+    height: 1.8rem;
+    left: 1ch;
+    box-sizing: border-box;
+}
+
+.blurEffect::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: -5%;
+    width: 120%;
+    height: 15rem;
+    background: linear-gradient(var(--background) 7rem, transparent 15rem);
+    z-index: 2;
+    pointer-events: none;
+}
+
+.blurEffect::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -5%;
+    width: 120%;
+    height: 15rem;
+    background: linear-gradient(transparent 1rem, var(--background) 7rem);
+    z-index: 2;
+    pointer-events: none;
+}
+
+.blurEffect .vScroll {
+    position: relative;
+    display: flex;
+    height: fit-content;
+    flex-direction: column;
+    box-sizing: border-box;
+    height: fit-content;
+    gap: 0.5rem;
+    user-select: none;
+}
+
+.vScroll h2 {
+    position: relative;
+    margin: 0;
+    cursor: grab;
+}
+
+.introText * {
+    box-sizing: border-box;
+}
+
+.dragging {
+    cursor: grabbing !important;
 }
