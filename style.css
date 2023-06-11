@@ -218,9 +218,11 @@ section:nth-of-type(2n) {
     display: flex;
     padding: 1rem;
     align-items: center;
+    justify-content: center;
     left: 0;
     right: 0;
     top: 0;
+    width: 100%;
     box-sizing: border-box;
 }
 
@@ -274,8 +276,16 @@ section:nth-of-type(2n) {
 
 .introText * {
     box-sizing: border-box;
+    font-size: 1rem;
 }
 
 .dragging {
     cursor: grabbing !important;
+}
+
+@media (max-width: 300px) {
+    body {
+      outline: 10px solid red;
+      outline-offset: -10px;
+    }
 }
