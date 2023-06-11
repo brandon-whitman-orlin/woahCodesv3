@@ -97,7 +97,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
         if (isDragging) {
             isDragging = false;
             vScrollContainer.classList.remove('dragging');
-            console.log(vScrollContainer.style.top);
         }
     }
 
@@ -116,4 +115,29 @@ document.addEventListener("DOMContentLoaded", (event) => {
             return Math.abs(inputNumber - current) < Math.abs(inputNumber - closest) ? current : closest;
         });
     }
+});
+
+// Match Intro Description to Intro Text
+document.addEventListener("DOMContentLoaded", (event) => {
+
+});
+
+
+document.addEventListener("DOMContentLoaded", (event) => {
+    function isMouseOrTouch() {
+        // Check for touch screen
+        if ('ontouchstart' in window || navigator.maxTouchPoints) {
+          document.body.style.backgroundColor = "red";
+        }
+      
+        // Check for mouse
+        if (window.matchMedia && window.matchMedia('(pointer:fine)').matches) {
+            document.body.style.backgroundColor = "blue";
+        }
+      
+        // Fallback to unknown
+        return 'unknown';
+      }
+
+    isMouseOrTouch();
 });
