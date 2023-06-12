@@ -58,70 +58,50 @@ document.addEventListener("DOMContentLoaded", (event) => {
 document.addEventListener("DOMContentLoaded", (event) => {
     const elements = document.querySelectorAll('.clickDrag');
     const vScrollContainer = document.querySelector('.vScroll');
-    let introducing = document.getElementById("introducing");
-    // const defaultSnapList = [0, -36, -72.32, -108.48, -144.8];
-    const smallSnapList = [5.1, -21.5, -48.1, -74.7, -101.3];
-    const safariSnapList = [4.8, -23.5, -51.5, -79.5, -107.4];
-    let snapList = smallSnapList;
+    const introducing = document.getElementById("introducing");
+    let h2Height, h2FontSize, diff;
+    const snapCount = 5;
+    let snapList = [];
 
-    let safari = false;
-
-    if ((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1) {
-        safari = false;
-    } else if (navigator.userAgent.indexOf("Chrome") != -1) {
-        safari = false;
-    } else if (navigator.userAgent.indexOf("Safari") != -1) {
-        safari = true;
+    function updateValues() {
+        const computedStyle = window.getComputedStyle(introducing);
+        h2Height = parseFloat(computedStyle.height);
+        h2FontSize = parseFloat(computedStyle.fontSize) / 16;
+        diff = 1.5 + (1.5 * h2FontSize) - 2;
+        snapList = [];
+        for (let i = 0; i < snapCount; i++) {
+            snapList.push(-i * h2Height - i * 8 - diff);
+        }
+        vScrollContainer.style.top = snapList[0] + 'px';
     }
 
-    if (safari) {
-        snapList = safariSnapList;
-    }
-
-    vScrollContainer.style.top = snapList[0] + 'px';
+    updateValues();
+    window.addEventListener("resize", updateValues);
 
     let isDragging = false;
     let initialY = 0;
     let yOffset = 0;
-    const minTop = 0;
-    const maxTop = -9.05 * parseFloat(getComputedStyle(vScrollContainer).fontSize);
+    const minTop = snapList[0];
+    const maxTop = snapList[snapList.length - 1];
 
     elements.forEach(function(element) {
-        element.addEventListener('mousedown', function() {
-            element.classList.add('dragging');
-        });
-
-        element.addEventListener('mouseup', function() {
-            element.classList.remove('dragging');
-        });
-
-        element.addEventListener('touchstart', function(e) {
-            e.preventDefault();
-            element.classList.add('dragging');
-            dragStart(e.touches[0]);
-        });
-
-        element.addEventListener('touchmove', function(e) {
-            e.preventDefault();
-            drag(e.touches[0]);
-        });
-
-        element.addEventListener('touchend', function() {
-            element.classList.remove('dragging');
-            dragEnd();
-        });
+        element.addEventListener('mousedown', handleDragStart);
+        element.addEventListener('mouseup', handleDragEnd);
+        element.addEventListener('touchstart', handleTouchStart);
+        element.addEventListener('touchmove', handleTouchMove);
+        element.addEventListener('touchend', handleTouchEnd);
     });
 
-    function dragStart(e) {
+    function handleDragStart(e) {
         isDragging = true;
         initialY = e.clientY || e.touches[0].clientY;
         yOffset = vScrollContainer.offsetTop;
         vScrollContainer.classList.add('dragging');
     }
 
-    function drag(e) {
+    function handleDragMove(e) {
         if (isDragging) {
-            const clientY = e.clientY || e.touches[0].clientY;
+            const clientY = e.clientY || (e.touches && e.touches[0] && e.touches[0].clientY);
             const deltaY = clientY - initialY;
             let newTop = Math.max(Math.min(yOffset + deltaY, minTop), maxTop);
             introducing.setAttribute("data-state", snapList.indexOf(findClosestNumber(newTop, snapList)))
@@ -129,27 +109,42 @@ document.addEventListener("DOMContentLoaded", (event) => {
         }
     }
 
-    function dragEnd() {
+    function handleDragEnd() {
         if (isDragging) {
             isDragging = false;
             vScrollContainer.classList.remove('dragging');
         }
     }
 
-    vScrollContainer.addEventListener('mousedown', dragStart);
-    document.addEventListener('mousemove', drag);
-    document.addEventListener('mouseup', dragEnd);
+    function handleTouchStart(e) {
+        e.preventDefault();
+        handleDragStart(e.touches[0]);
+    }
 
-    document.addEventListener('selectstart', (e) => {
-        if (isDragging) {
-            e.preventDefault();
-        }
-    });
+    function handleTouchMove(e) {
+        e.preventDefault();
+        handleDragMove(e.touches[0]);
+    }
+
+    function handleTouchEnd() {
+        handleDragEnd();
+    }
 
     function findClosestNumber(inputNumber, numbers) {
         return numbers.reduce((closest, current) => {
             return Math.abs(inputNumber - current) < Math.abs(inputNumber - closest) ? current : closest;
         });
+    }
+
+    vScrollContainer.addEventListener('mousedown', handleDragStart);
+    document.addEventListener('mousemove', handleDragMove);
+    document.addEventListener('mouseup', handleDragEnd);
+    document.addEventListener('selectstart', handleSelectStart);
+  
+    function handleSelectStart(e) {
+        if (isDragging) {
+            e.preventDefault();
+        }
     }
 });
 
