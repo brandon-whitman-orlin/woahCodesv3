@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         });
       });
 
-      if (!tabList.contains(targetElement) && curOpen === "105.6px") {
+      if (!tabList.contains(targetElement) && parseFloat(curOpen.substring(0, curOpen.length - 2)) >= 1) {
         moveNavMenu("Up");
         navToggle.checked = false;
       }
