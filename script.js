@@ -41,19 +41,23 @@ document.addEventListener("DOMContentLoaded", (event) => {
     document.addEventListener("touchstart", handleEvent);
     
     function handleEvent(event) {
-      const target = event.target;
       const tabLinks = document.querySelectorAll("a.tabLink");
       const tabList = document.querySelector("div.tabList");
       const navToggle = document.getElementById("navToggle");
-    
       const curOpen = window.getComputedStyle(tabList).height;
-
+      let targetElement = event.target;
+    
       tabLinks.forEach(element => {
         element.addEventListener("click", function() {
             moveNavMenu("Up");
             navToggle.checked = false;
         });
       });
+
+      if (!tabList.contains(targetElement) && curOpen === "105.6px") {
+        moveNavMenu("Up");
+        navToggle.checked = false;
+      }
     }
 
     function moveNavMenu(direction) {
