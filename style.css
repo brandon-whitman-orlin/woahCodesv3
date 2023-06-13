@@ -213,6 +213,8 @@ section {
 	box-sizing: border-box;
 	position: relative;
 	min-height: 50rem;
+	overflow-x: hidden;
+	width: 100%;
 }
 
 section:nth-of-type(2n) {
