@@ -37,16 +37,25 @@ document.addEventListener("DOMContentLoaded", (event) => {
         }
     });
 
-    document.addEventListener("click", function(event) {
+    document.addEventListener("click", handleEvent);
+    document.addEventListener("touchstart", handleEvent);
+
+    function handleEvent(event) {
         const target = event.target;
+        const tabLinks = document.querySelectorAll("a.tabLink");
+        const tabList = document.querySelector("div.tabList");
+        const navToggle = document.getElementById("navToggle");
 
-        curOpen = (window.getComputedStyle(tabList).height);
+        const curOpen = window.getComputedStyle(tabList).height;
 
-        if ((!tabList.contains(target) || Array.from(tabLinks).includes(target)) && curOpen == "105.6px") {
+        if (
+            (!tabList.contains(target) || Array.from(tabLinks).includes(target)) &&
+            curOpen === "105.6px"
+        ) {
             moveNavMenu("Up");
             navToggle.checked = false;
         }
-    });
+    }
 
     function moveNavMenu(direction) {
         if (direction === "Down") {
