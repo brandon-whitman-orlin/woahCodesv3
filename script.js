@@ -1,4 +1,4 @@
-// Handling Navigation Toggle when using Keyboard Navigation
+// Handle Navigation Toggle when using Keyboard Navigation
 document.addEventListener("DOMContentLoaded", (event) => {
     const navIcon = document.querySelector(".navIcon");
     const navToggle = document.querySelector("#navToggle");
@@ -16,8 +16,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 document.addEventListener("DOMContentLoaded", (event) => {
     const navIcon = document.querySelector(".navIcon");
     const navToggle = document.querySelector("#navToggle");
-    const tabList = document.querySelector(".tabList");
-    const tabLinks = document.querySelectorAll(".tabLink");
+    const tabList = document.querySelector("div.tabList");
+    const tabLinks = document.querySelectorAll("a.tabLink");
 
     navIcon.addEventListener("click", function() {
         if (navToggle.checked) {
@@ -35,11 +35,22 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 moveNavMenu("Up");
             }
         }
-    })
+    });
+
+    document.addEventListener("click", function(event) {
+        const target = event.target;
+
+        curOpen = (window.getComputedStyle(tabList).height);
+
+        if ((!tabList.contains(target) || Array.from(tabLinks).includes(target)) && curOpen == "105.6px") {
+            moveNavMenu("Up");
+            navToggle.checked = false;
+        }
+    });
 
     function moveNavMenu(direction) {
         if (direction === "Down") {
-            tabList.style.maxHeight = "20rem";
+            tabList.style.maxHeight = "6.6rem";
             tabList.style.padding = "0.5rem";
             tabLinks.forEach(tabLink => {
                 tabLink.setAttribute("tabindex", "0");
@@ -60,7 +71,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     const vScrollContainer = document.querySelector('.vScroll');
     const introducing = document.getElementById("introducing");
     let h2Height, h2FontSize, diff;
-    const snapCount = 5;
+    const snapCount = vScrollContainer.childElementCount;
     let snapList = [];
 
     function updateValues() {
@@ -140,14 +151,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
     document.addEventListener('mousemove', handleDragMove);
     document.addEventListener('mouseup', handleDragEnd);
     document.addEventListener('selectstart', handleSelectStart);
-  
+
     function handleSelectStart(e) {
         if (isDragging) {
             e.preventDefault();
         }
     }
 });
-
 
 // Match Intro Description to Intro Text
 document.addEventListener("DOMContentLoaded", (event) => {

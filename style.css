@@ -4,7 +4,12 @@
 	--primary: #8d8494;
 	--secondary: #0e100f;
 	--accent: #948d84;
-	--font: 'Karla', sans-serif;
+	--font: "Karla", sans-serif;
+}
+
+html {
+	scroll-behavior: smooth;
+	scroll-padding-top: 4.3rem;
 }
 
 body {
@@ -58,14 +63,16 @@ header {
 	position: absolute;
 	background-color: var(--text);
 	height: 100%;
-	width: 50%;
+	width: 53%;
 	right: 0;
-	transition: right 0.3s ease-in-out, left 0.3s ease-in-out;
+	transition: right 0.3s ease-in-out, left 0.3s ease-in-out,
+		width 0.3s ease-in-out;
 }
 
 .logo:hover .logoBox,
 .logo:focus-visible .logoBox {
-	right: 50%;
+	right: 53%;
+	width: 47%;
 }
 
 .logo:focus-visible {
@@ -163,7 +170,7 @@ nav .tabList {
 	height: fit-content;
 	max-height: 0px;
 	overflow: hidden;
-	min-width: 11rem;
+	min-width: 8rem;
 	background-color: var(--accent);
 	border-radius: 0 0 10px 10px;
 	transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
@@ -189,12 +196,13 @@ nav .tabList {
 	margin: 0.25rem;
 	padding-block: 0.1rem;
 	padding-inline: 0.25rem;
+	font-size: inherit;
 	transition: font-size 0.3s ease-in-out;
 }
 
 .tabItem a:hover,
 .tabItem a:focus-visible {
-	font-size: 1.1rem;
+	font-size: larger;
 }
 
 .tabItem a:focus-visible {
@@ -236,7 +244,7 @@ section:nth-of-type(2n) {
 }
 
 .blurEffect::before {
-	content: '';
+	content: "";
 	position: absolute;
 	bottom: 0;
 	right: -5%;
@@ -248,7 +256,7 @@ section:nth-of-type(2n) {
 }
 
 .blurEffect::after {
-	content: '';
+	content: "";
 	position: absolute;
 	top: 0;
 	right: -5%;
@@ -280,7 +288,7 @@ section:nth-of-type(2n) {
 	box-sizing: border-box;
 	font-size: var(--introTextHeight);
 	padding-block: 0rem;
-    margin-block: 0rem;
+	margin-block: 0rem;
 }
 
 .dragging {
@@ -289,7 +297,7 @@ section:nth-of-type(2n) {
 
 @media (max-width: 300px) {
 	section::before {
-		content: '300px';
+		content: "300px";
 		font-size: 3rem;
 		font-weight: bold;
 		opacity: 0.5;
