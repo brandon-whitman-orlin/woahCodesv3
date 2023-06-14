@@ -86,6 +86,17 @@ document.addEventListener("DOMContentLoaded", (event) => {
     const snapCount = vScrollContainer.childElementCount;
     let snapList = [];
     const spheres = document.querySelectorAll(".imageSphere");
+    let abText = document.getElementById("aboutTextDescription");
+    let abTextBG = document.getElementById("aboutTextDescription2");
+    const descs = [
+        "With experience in project management and consulting, I'm able to promise accelerated work without compromising on quality.",
+        "I care about the work I put out into the world, and I'm passionate about software and web design. You'll always get top-tier work, no matter what it takes.",
+        "I see Computer Science as the most dynamic method of problem solving there is. For that reason, there's never a task or challenge I won't face head on.",
+        "To me, Computer Science is more than a science, it's an art form deserving of recognition and celebration. Solving problems in creative ways is the best way to get through life.",
+        "If any of that resonates with you, I know we'll work great together. Let's collaborate! Find out to contact me down below!"
+    ]
+
+    updateText();
 
     function updateValues() {
         const computedStyle = window.getComputedStyle(introducing);
@@ -168,11 +179,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         spheres[nextState].style.transform = "rotate(0)";
                         spheres[nextState].classList.remove("slideIn");
                         nextCenterImage.classList.remove("rollIn");
+
+                        introducing.setAttribute("data-state", nextState);
+                        updateText();
                     }, 800);
                 }, 800);
             }
-
-            introducing.setAttribute("data-state", nextState);
 
             // Set cooldown and update last drag time
             cooldown = true;
@@ -181,6 +193,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 cooldown = false;
             }, dragCooldownTime);
         }
+    }
+
+    function updateText() {
+        let state = parseInt(document.getElementById("introducing").getAttribute("data-state"));
+        abText.innerHTML = descs[state];
+        abTextBG.innerHTML = descs[state];
     }
 
     function handleTouchStart(e) {
@@ -212,15 +230,5 @@ document.addEventListener("DOMContentLoaded", (event) => {
         if (isDragging) {
             e.preventDefault();
         }
-    }
-});
-
-// Match Intro Image and Description to Intro Text
-document.addEventListener("DOMContentLoaded", (event) => {
-    const state = parseInt(document.getElementById("introducing").getAttribute("data-state"));
-    const spheres = document.querySelectorAll(".imageSphere");
-
-    if (spheres) {
-
     }
 });
