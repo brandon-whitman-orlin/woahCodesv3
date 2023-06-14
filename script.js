@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     // Drag cooldown variables
     let cooldown = false;
     let lastDragTime = 0;
-    const dragCooldownTime = 1000; // 1 second cooldown
+    const dragCooldownTime = 1500; // 1 second cooldown
 
     elements.forEach(function(element) {
         element.addEventListener('mousedown', handleDragStart);
@@ -168,8 +168,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         spheres[nextState].style.transform = "rotate(0)";
                         spheres[nextState].classList.remove("slideIn");
                         nextCenterImage.classList.remove("rollIn");
-                    }, 600);
-                }, 600);
+                    }, 800);
+                }, 800);
             }
 
             introducing.setAttribute("data-state", nextState);
