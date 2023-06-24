@@ -123,6 +123,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
             let initialDataState = parseInt(introducing.getAttribute("data-state"));
             let nextState = (initialDataState - 1 + numStates) % numStates;
 
+            vScrollContainer.style.top = snapList[nextState] + "px";
+            console.log(snapList[nextState]);
+
             introducing.setAttribute("data-state", nextState);
 
             if (nextState != initialDataState) {
@@ -164,7 +167,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             let initialDataState = parseInt(introducing.getAttribute("data-state"));
             let nextState = (initialDataState + 1 + numStates) % numStates;
 
-            vScrollContainer.style.top = snapList[nextState];
+            vScrollContainer.style.top = snapList[nextState] + "px";
             console.log(snapList[nextState]);
 
             introducing.setAttribute("data-state", nextState);
