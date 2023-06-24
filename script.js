@@ -220,7 +220,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
         for (let i = 0; i < snapCount; i++) {
             snapList.push(-i * h2Height - i * 8 - diff);
         }
-        vScrollContainer.style.top = snapList[0] + 'px';
+        initialDataState = parseInt(introducing.getAttribute("data-state"));
+
+        vScrollContainer.style.top = snapList[initialDataState] + "px";
+        console.log(snapList[nextState]);
     }
 
     updateValues();
