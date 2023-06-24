@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     const spheres = document.querySelectorAll(".imageSphere");
     let abText = document.getElementById("aboutTextDescription");
     let abTextBG = document.getElementById("aboutTextDescription2");
-    let mobileMode = true;
+    let mobileMode = false;
 
     let introMobileUp = document.getElementById("mobileUpArrow");
     let introMobileDown = document.getElementById("mobileDownArrow");
