@@ -298,7 +298,7 @@ section:nth-of-type(2n) {
 	padding: 0.25rem;
 	border-radius: 1rem;
 	box-sizing: border-box;
-	left: 100%;
+	right: 100%;
 }
 
 .dragDown {

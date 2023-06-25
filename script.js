@@ -82,24 +82,24 @@ document.addEventListener("DOMContentLoaded", (event) => {
     const elements = document.querySelectorAll('.clickDrag');
     const vScrollContainer = document.querySelector('.vScroll');
     const introducing = document.getElementById("introducing");
-    let h2Height, h2FontSize, diff;
-    const snapCount = vScrollContainer.childElementCount;
-    let snapList = [];
-    let cooldown = false;
-    let clickCooldown = false;
     const spheres = document.querySelectorAll(".imageSphere");
     let abText = document.getElementById("aboutTextDescription");
     let abTextBG = document.getElementById("aboutTextDescription2");
-    let mobileMode = false;
-    let clicked = false;
-    const hintDelay = 10000;
-    let hint = document.getElementById("swipeAnimation");
-    let initialDataState = parseInt(introducing.getAttribute("data-state"));
-
     let introMobileUp = document.getElementById("mobileUpArrow");
     let introMobileDown = document.getElementById("mobileDownArrow");
-
     const scroller = document.getElementById("mobileIntroScroll");
+    let initialDataState = parseInt(introducing.getAttribute("data-state"));
+    let hint = document.getElementById("swipeAnimation");
+
+    let cooldown = false;
+    let clickCooldown = false;
+    let mobileMode = false;
+    let clicked = false;
+
+    let h2Height, h2FontSize, diff, snapList;
+    const snapCount = vScrollContainer.childElementCount;
+    const hintDelay = 15000;
+
     window.mobileAndTabletCheck = function() {
         let check = false;
         (function(a) {
@@ -127,23 +127,24 @@ document.addEventListener("DOMContentLoaded", (event) => {
             setTimeout(function() {
                 clickCooldown = false;
             }, 1800);
+            let currentState = parseInt(introducing.getAttribute("data-state"));
             let numStates = parseInt(vScrollContainer.childElementCount);
-            let nextState = (initialDataState - 1 + numStates) % numStates;
+            let nextState = (currentState - 1 + numStates) % numStates;
 
             vScrollContainer.style.top = snapList[nextState] + "px";
 
             introducing.setAttribute("data-state", nextState);
 
-            if (nextState != initialDataState) {
-                const centerImage = spheres[initialDataState].querySelector('.centerImage');
+            if (nextState != currentState) {
+                const centerImage = spheres[currentState].querySelector('.centerImage');
                 const nextCenterImage = spheres[nextState].querySelector('.centerImage');
 
-                spheres[initialDataState].classList.add("slideOut");
+                spheres[currentState].classList.add("slideOut");
                 centerImage.classList.add("rollIn");
 
                 setTimeout(function() {
-                    spheres[initialDataState].style.transform = "translateY(-70rem)";
-                    spheres[initialDataState].classList.remove("slideOut");
+                    spheres[currentState].style.transform = "translateY(-70rem)";
+                    spheres[currentState].classList.remove("slideOut");
                     centerImage.classList.remove("rollIn");
 
                     spheres[nextState].classList.add("slideIn");
@@ -171,23 +172,24 @@ document.addEventListener("DOMContentLoaded", (event) => {
             setTimeout(function() {
                 clickCooldown = false;
             }, 1800);
+            let currentState = parseInt(introducing.getAttribute("data-state"));
             let numStates = parseInt(vScrollContainer.childElementCount);
-            let nextState = (initialDataState + 1 + numStates) % numStates;
+            let nextState = (currentState + 1 + numStates) % numStates;
 
             vScrollContainer.style.top = snapList[nextState] + "px";
 
             introducing.setAttribute("data-state", nextState);
 
-            if (nextState != initialDataState) {
-                const centerImage = spheres[initialDataState].querySelector('.centerImage');
+            if (nextState != currentState) {
+                const centerImage = spheres[currentState].querySelector('.centerImage');
                 const nextCenterImage = spheres[nextState].querySelector('.centerImage');
 
-                spheres[initialDataState].classList.add("slideOut");
+                spheres[currentState].classList.add("slideOut");
                 centerImage.classList.add("rollIn");
 
                 setTimeout(function() {
-                    spheres[initialDataState].style.transform = "translateY(-70rem)";
-                    spheres[initialDataState].classList.remove("slideOut");
+                    spheres[currentState].style.transform = "translateY(-70rem)";
+                    spheres[currentState].classList.remove("slideOut");
                     centerImage.classList.remove("rollIn");
 
                     spheres[nextState].classList.add("slideIn");
