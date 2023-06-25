@@ -271,6 +271,52 @@ section:nth-of-type(2n) {
 	pointer-events: none;
 }
 
+.swipeAnimation {
+	display: none;
+	position: absolute;
+	pointer-events: none;
+	left: 12.5%;
+	width: 3rem;
+	height: 3rem;
+	z-index: 10;
+	background-image: url("assets/dragHand.png");
+	background-size: 3rem 3rem;
+	box-sizing: border-box;
+	transform: translateY(3rem);
+}
+
+.swipeAnimation::after {
+	content: 'Drag to see more!';
+	position: absolute;
+	width: 6rem;
+	text-align: center;
+	color: var(--secondary);
+	font-family: var(--font);
+	font-weight: bold;
+	border: 4px solid var(--secondary);
+	background-color: var(--primary);
+	padding: 0.25rem;
+	border-radius: 1rem;
+	box-sizing: border-box;
+	left: 100%;
+}
+
+.dragDown {
+	animation: dragDown 4s ease-in-out infinite;
+}
+
+@keyframes dragDown {
+
+	0%,
+	100% {
+		top: 0rem;
+	}
+
+	50% {
+		top: -2rem;
+	}
+}
+
 .mobileIntroScroll {
 	display: none;
 	position: absolute;
@@ -291,7 +337,8 @@ section:nth-of-type(2n) {
 	filter: opacity(25%);
 }
 
-.mobileArrow:hover, .mobileArrow:focus-visible {
+.mobileArrow:hover,
+.mobileArrow:focus-visible {
 	transform: scale(1.1);
 	filter: opacity(75%);
 }
@@ -317,6 +364,7 @@ section:nth-of-type(2n) {
 	height: fit-content;
 	gap: 0.5rem;
 	user-select: none;
+	z-index: 1;
 }
 
 .vScroll h2 {
